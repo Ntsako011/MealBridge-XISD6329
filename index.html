@@ -3,106 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MealBridge | Community Food Scheme</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>MealBridge | Community Food Scheme & Outreach</title>
+    <!-- Professional Fonts (Playfair Display + Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2e7d32;
-            --primary-dark: #1b5e20;
+            --primary: #1b5e20;
+            --primary-light: #2e7d32;
             --accent: #ffb300;
-            --light: #f1f8e9;
+            --accent-dark: #ff8f00;
+            --light: #f4f9f4;
             --white: #ffffff;
-            --dark: #1e1e1e;
-            --grey: #666666;
-            --danger: #c62828;
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --dark: #1f2937;
+            --grey: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Open Sans', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.7; }
 
-        /* Navigation */
-        .navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--primary); cursor: pointer; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--primary); font-weight: 700; }
+
+        /* ==================== NAVIGATION ==================== */
+        .navbar { background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); cursor: pointer; letter-spacing: -0.5px; }
         .logo span { color: var(--accent); }
         .nav-links { list-style: none; display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--grey); font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a { text-decoration: none; color: var(--grey); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; position: relative; }
         .nav-links a:hover { color: var(--primary); }
-        .nav-links a.login-btn { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 30px; }
-        .nav-links a.login-btn:hover { background: var(--primary-dark); color: var(--white); }
-        .burger { display: none; font-size: 1.5rem; cursor: pointer; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--accent); transition: width 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.login-btn { background: var(--primary); color: var(--white); padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 10px rgba(27,94,32,0.3); }
+        .nav-links a.login-btn::after { display: none; }
+        .nav-links a.login-btn:hover { background: var(--accent); color: var(--primary); }
+        .burger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
 
-        /* Hero */
-        .hero { background: linear-gradient(rgba(27,94,32,0.8), rgba(27,94,32,0.9)), url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); }
-        .hero h1 { font-size: 4rem; margin-bottom: 1rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .hero p { font-size: 1.25rem; max-width: 600px; margin-bottom: 2.5rem; color: rgba(255,255,255,0.9); }
+        /* ==================== HERO SECTION ==================== */
+        .hero { background: linear-gradient(rgba(27,94,32,0.85), rgba(27,94,32,0.95)), url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); padding: 0 1rem; }
+        .hero h1 { font-size: 4.5rem; color: var(--white); margin-bottom: 1.5rem; line-height: 1.2; text-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .hero p { font-size: 1.25rem; max-width: 650px; margin-bottom: 2.5rem; color: rgba(255,255,255,0.95); font-weight: 300; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
-        /* Buttons */
-        .btn { padding: 0.9rem 2rem; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
-        .btn-primary { background: var(--accent); color: var(--primary-dark); }
-        .btn-primary:hover { background: #ffa000; transform: translateY(-3px); }
+        /* ==================== BUTTONS ==================== */
+        .btn { padding: 1rem 2.5rem; border: none; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; }
+        .btn-primary { background: var(--accent); color: var(--primary); box-shadow: 0 4px 15px rgba(255,179,0,0.4); }
+        .btn-primary:hover { background: var(--accent-dark); transform: translateY(-3px); }
         .btn-outline { background: transparent; border: 2px solid var(--white); color: var(--white); }
         .btn-outline:hover { background: var(--white); color: var(--primary); transform: translateY(-3px); }
+        .btn-dark { background: var(--primary); color: var(--white); }
+        .btn-dark:hover { background: var(--primary-light); transform: translateY(-3px); }
 
-        /* Sections & Cards */
-        .section { padding: 5rem 5%; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
-        .section-subtitle { text-align: center; color: var(--grey); max-width: 600px; margin: 0 auto 3rem; }
-        .form-container { background: var(--white); padding: 3rem; border-radius: 20px; box-shadow: var(--shadow); max-width: 700px; margin: 0 auto; }
+        /* ==================== SECTIONS ==================== */
+        .section { padding: 6rem 5%; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-tag { display: inline-block; background: rgba(27,94,32,0.1); color: var(--primary); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+        .section-title { font-size: 3rem; margin-bottom: 1rem; }
+        .section-subtitle { color: var(--grey); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+
+        /* ==================== ABOUT / MISSION ==================== */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .about-image { border-radius: 20px; box-shadow: var(--shadow-hover); overflow: hidden; }
+        .about-image img { width: 100%; height: auto; display: block; }
+        .about-text h3 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .about-text p { color: var(--grey); margin-bottom: 1.5rem; font-size: 1.05rem; }
+        .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .about-stat { text-align: center; }
+        .about-stat h4 { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.2rem; }
+        .about-stat p { font-size: 0.9rem; color: var(--grey); font-weight: 600; text-transform: uppercase; }
+
+        /* ==================== FORMS ==================== */
+        .form-container { background: var(--white); padding: 3rem; border-radius: 20px; box-shadow: var(--shadow); max-width: 700px; margin: 0 auto; border-top: 4px solid var(--accent); }
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary-dark); }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--primary); font-size: 0.95rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 1rem; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; transition: border-color 0.3s; background: var(--light); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); background: var(--white); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
         .message { padding: 1rem; border-radius: 10px; text-align: center; margin-top: 1rem; font-weight: 600; display: none; }
         .message.success { background: #d4edda; color: #155724; display: block; }
         .message.error { background: #f8d7da; color: #721c24; display: block; }
 
-        /* Donation */
-        .donation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
-        .donation-card { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); border-top: 5px solid var(--accent); }
+        /* ==================== DONATION GRID ==================== */
+        .donation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        .donation-card { background: var(--white); padding: 2.5rem; border-radius: 20px; box-shadow: var(--shadow); border-top: 5px solid var(--accent); transition: transform 0.3s, box-shadow 0.3s; }
+        .donation-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .donation-card h3 { font-size: 1.8rem; margin-bottom: 1.5rem; }
         .amounts { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .amount { padding: 0.6rem 1.2rem; border: 2px solid var(--primary); background: transparent; border-radius: 50px; font-weight: 700; color: var(--primary); cursor: pointer; }
-        .amount.active { background: var(--primary); color: var(--white); }
+        .amount { padding: 0.6rem 1.2rem; border: 2px solid var(--primary); background: transparent; border-radius: 50px; font-weight: 700; color: var(--primary); cursor: pointer; transition: all 0.2s; }
+        .amount:hover, .amount.active { background: var(--primary); color: var(--white); }
+        .donation-card input { width: 100%; padding: 1rem; border: 2px solid var(--border); border-radius: 10px; font-size: 1rem; margin-bottom: 1rem; }
 
-        /* Admin (Hidden by default) */
+        /* ==================== EVENTS & OUTREACH SECTION ==================== */
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .event-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .event-image { height: 200px; background-size: cover; background-position: center; position: relative; }
+        .event-date-badge { position: absolute; top: 15px; left: 15px; background: var(--accent); color: var(--primary); padding: 0.5rem 1rem; border-radius: 10px; font-weight: 800; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .event-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .event-content h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .event-meta { display: flex; align-items: center; gap: 0.5rem; color: var(--grey); font-size: 0.9rem; margin-bottom: 1rem; }
+        .event-content p { color: var(--grey); margin-bottom: 1.5rem; flex: 1; }
+        .event-btn { align-self: flex-start; background: var(--primary); color: var(--white); border: none; padding: 0.7rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        .event-btn:hover { background: var(--accent); color: var(--primary); }
+
+        /* ==================== ADMIN DASHBOARD ==================== */
         #admin { display: none; }
         .admin-panel { background: var(--white); padding: 2rem; border-radius: 20px; box-shadow: var(--shadow); max-width: 700px; margin: 0 auto; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
         .stat-box { background: var(--white); padding: 2rem; text-align: center; border-radius: 20px; box-shadow: var(--shadow); }
-        .stat-box h3 { font-size: 3rem; color: var(--primary); }
+        .stat-box h3 { font-size: 3rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .stat-box p { color: var(--grey); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .admin-panel ul { list-style: none; }
+        .admin-panel li { padding: 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--grey); }
 
-        /* Chatbot */
-        .chatbot-container { position: fixed; bottom: 30px; right: 30px; width: 380px; height: 550px; background: var(--white); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; z-index: 2000; transform: translateY(150%); transition: transform 0.4s; }
+        /* ==================== CHATBOT ==================== */
+        .chatbot-container { position: fixed; bottom: 30px; right: 30px; width: 380px; height: 550px; background: var(--white); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; z-index: 2000; transform: translateY(150%); transition: transform 0.4s; border: 1px solid var(--border); }
         .chatbot-container.open { transform: translateY(0); }
-        .chat-header { background: var(--primary); color: var(--white); padding: 1.2rem; cursor: pointer; display: flex; justify-content: space-between; }
-        .chat-body { flex: 1; padding: 1rem; overflow-y: auto; background: #f9f9f9; }
-        .msg { padding: 0.9rem 1.2rem; border-radius: 15px; max-width: 80%; font-size: 0.95rem; margin-bottom: 0.8rem; }
-        .msg.bot { background: var(--light); align-self: flex-start; }
+        .chat-header { background: var(--primary); color: var(--white); padding: 1.2rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+        .chat-body { flex: 1; padding: 1rem; overflow-y: auto; background: var(--light); }
+        .msg { padding: 0.9rem 1.2rem; border-radius: 15px; max-width: 80%; font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.5; }
+        .msg.bot { background: var(--white); align-self: flex-start; border: 1px solid var(--border); }
         .msg.user { background: var(--primary); color: white; margin-left: auto; }
-        .chat-input { padding: 1rem; background: var(--white); border-top: 1px solid #f0f0f0; display: flex; gap: 0.5rem; }
-        .chat-input input { flex: 1; padding: 0.9rem; border: 2px solid #e0e0e0; border-radius: 30px; }
+        .chat-input { padding: 1rem; background: var(--white); border-top: 1px solid var(--border); display: flex; gap: 0.5rem; }
+        .chat-input input { flex: 1; padding: 0.9rem; border: 2px solid var(--border); border-radius: 30px; font-size: 0.95rem; outline: none; }
+        .chat-input button { background: var(--primary); color: var(--white); border: none; border-radius: 30px; padding: 0 1.5rem; font-weight: 700; cursor: pointer; }
         .chat-fab { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer; box-shadow: 0 4px 15px rgba(255,179,0,0.4); z-index: 1999; border: none; }
 
-        /* Footer */
-        footer { background: var(--primary-dark); color: rgba(255,255,255,0.8); text-align: center; padding: 3rem 5%; margin-top: 4rem; }
+        /* ==================== FOOTER ==================== */
+        footer { background: var(--primary); color: rgba(255,255,255,0.8); text-align: center; padding: 4rem 5%; margin-top: 4rem; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; }
+        .footer-logo span { color: var(--accent); }
+        .footer-links { list-style: none; display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.3s; font-weight: 500; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-copy { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
 
-        /* Responsive */
+        /* ==================== RESPONSIVE ==================== */
         @media (max-width: 900px) {
-            .nav-links { display: none; }
+            .nav-links { position: fixed; top: 70px; right: -100%; width: 100%; height: calc(100vh - 70px); background: var(--white); flex-direction: column; justify-content: flex-start; padding: 2rem; transition: right 0.4s; gap: 1.5rem; box-shadow: -5px 0 20px rgba(0,0,0,0.1); }
+            .nav-links.active { right: 0; }
             .burger { display: block; }
             .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-stats { grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
             .chatbot-container { width: 90%; right: 5%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation (Admin link REMOVED) -->
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="logo" onclick="scrollToSection('home')">Meal<span>Bridge</span></div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events & Outreach</a></li>
             <li><a href="#request">Request Food</a></li>
             <li><a href="#donate">Donate</a></li>
             <li><a href="#volunteer">Volunteer</a></li>
@@ -113,63 +174,146 @@
 
     <!-- Hero -->
     <section id="home" class="hero">
-        <h1>Bridging the Gap to Nutrition</h1>
-        <p>We connect donors, volunteers, and families in need.</p>
+        <h1>Bridging the Gap<br>to Nutrition</h1>
+        <p>We connect donors, volunteers, and families in need to fight food insecurity in our community.</p>
         <div class="hero-buttons">
             <button onclick="scrollToSection('donate')" class="btn btn-primary">Donate Now</button>
-            <button onclick="scrollToSection('request')" class="btn btn-outline">Request Food</button>
+            <button onclick="scrollToSection('events')" class="btn btn-outline">Explore Outreach</button>
+        </div>
+    </section>
+
+    <!-- About / Mission -->
+    <section id="about" class="section">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Volunteers handing out food">
+            </div>
+            <div class="about-text">
+                <span class="section-tag">Our Mission</span>
+                <h3>Nourishing Our Community, One Meal at a Time</h3>
+                <p>MealBridge is a community-driven initiative dedicated to eradicating hunger in Pretoria. We believe that no family should go to bed hungry. Our platform seamlessly connects food donors, volunteers, and vulnerable families to ensure efficient distribution of resources.</p>
+                <p>Since our inception, we have grown into a network of over 100 dedicated volunteers, serving thousands of meals monthly. Through transparency and technology, we are making a real, measurable impact.</p>
+                <div class="about-stats">
+                    <div class="about-stat"><h4>5,000+</h4><p>Meals Served</p></div>
+                    <div class="about-stat"><h4>100+</h4><p>Volunteers</p></div>
+                    <div class="about-stat"><h4>50+</h4><p>Partner Donors</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events & Outreach -->
+    <section id="events" class="section" style="background:#f9f9f9;">
+        <div class="section-header">
+            <span class="section-tag">Get Involved</span>
+            <h2 class="section-title">Upcoming Events & Outreach</h2>
+            <p class="section-subtitle">Join us at our next community drive. Every hand helps.</p>
+        </div>
+        <div class="events-grid">
+            <!-- Event 1 -->
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="event-date-badge">31 May</div>
+                </div>
+                <div class="event-content">
+                    <h3>Monthly Community Food Drive</h3>
+                    <div class="event-meta">📍 Pretoria North Community Hall</div>
+                    <div class="event-meta">🕘 09:00 AM - 02:00 PM</div>
+                    <p>Join us for our flagship monthly drive. We will be packing and distributing food parcels to over 300 families. Volunteers and donations needed.</p>
+                    <button class="event-btn" onclick="registerForEvent('Monthly Community Food Drive')">Register to Attend</button>
+                </div>
+            </div>
+            <!-- Event 2 -->
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="event-date-badge">07 June</div>
+                </div>
+                <div class="event-content">
+                    <h3>Volunteer Training Day</h3>
+                    <div class="event-meta">📍 MealBridge Hub, Centurion</div>
+                    <div class="event-meta">🕙 10:00 AM - 01:00 PM</div>
+                    <p>New volunteers welcome! We will be running an onboarding and safety training session for all new team members. Refreshments provided.</p>
+                    <button class="event-btn" onclick="registerForEvent('Volunteer Training Day')">Register to Attend</button>
+                </div>
+            </div>
+            <!-- Event 3 -->
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                    <div class="event-date-badge">14 June</div>
+                </div>
+                <div class="event-content">
+                    <h3>Food Parcel Distribution</h3>
+                    <div class="event-meta">📍 Tshwane Church Center</div>
+                    <div class="event-meta">🕗 08:00 AM - 12:00 PM</div>
+                    <p>Help us pack and distribute essential food parcels to our registered beneficiaries. Logistics and transport support greatly appreciated.</p>
+                    <button class="event-btn" onclick="registerForEvent('Food Parcel Distribution')">Register to Attend</button>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Request Food -->
     <section id="request" class="section">
-        <h2 class="section-title">Request Food Assistance</h2>
+        <div class="section-header">
+            <span class="section-tag">We Are Here For You</span>
+            <h2 class="section-title">Request Food Assistance</h2>
+            <p class="section-subtitle">If you or someone you know is in need of food assistance, please fill out the form below.</p>
+        </div>
         <div class="form-container">
             <form id="requestForm">
-                <div class="form-group"><label>Full Name</label><input type="text" id="reqName" required></div>
-                <div class="form-group"><label>Household Size</label><input type="number" id="reqPeople" required></div>
-                <div class="form-group"><label>Description</label><textarea id="reqDetails" required></textarea></div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Submit Request</button>
+                <div class="form-group"><label>Full Name</label><input type="text" id="reqName" placeholder="Enter your full name" required></div>
+                <div class="form-group"><label>Household Size</label><input type="number" id="reqPeople" placeholder="How many people in your household?" required></div>
+                <div class="form-group"><label>Description</label><textarea id="reqDetails" placeholder="Briefly describe your situation..." required></textarea></div>
+                <button type="submit" class="btn btn-dark" style="width:100%;">Submit Request</button>
             </form>
-            <div id="reqMessage" class="message success">✅ Request submitted!</div>
+            <div id="reqMessage" class="message success">✅ Request submitted! We will review and contact you shortly.</div>
         </div>
     </section>
 
     <!-- Donate -->
     <section id="donate" class="section" style="background:#f9f9f9;">
-        <h2 class="section-title">Make a Donation</h2>
+        <div class="section-header">
+            <span class="section-tag">Make A Difference</span>
+            <h2 class="section-title">Make a Donation</h2>
+            <p class="section-subtitle">Your support helps us provide thousands of meals every month.</p>
+        </div>
         <div class="donation-grid">
             <div class="donation-card">
-                <h3>💸 Money</h3>
+                <h3>💸 Donate Money</h3>
                 <div class="amounts">
                     <button class="amount" data-amt="50">R50</button>
                     <button class="amount" data-amt="100">R100</button>
                     <button class="amount" data-amt="250">R250</button>
+                    <button class="amount" data-amt="500">R500</button>
                 </div>
-                <input type="number" id="customAmt" placeholder="Custom amount" style="margin-bottom:1rem;">
-                <button onclick="donateMoney()" class="btn btn-primary" style="width:100%;">Donate</button>
+                <input type="number" id="customAmt" placeholder="Or enter a custom amount (R)">
+                <button onclick="donateMoney()" class="btn btn-dark" style="width:100%;">Donate Money</button>
             </div>
             <div class="donation-card">
-                <h3>📦 Goods</h3>
-                <div class="form-group"><label>Goods</label><input type="text" id="goodsDesc"></div>
-                <div class="form-group"><label>Address</label><input type="text" id="goodsAddress"></div>
-                <button onclick="donateGoods()" class="btn btn-primary" style="width:100%;">Donate Goods</button>
+                <h3>📦 Donate Goods</h3>
+                <div class="form-group"><label>Goods Description</label><input type="text" id="goodsDesc" placeholder="e.g. 20kg Rice, Canned Food, Blankets"></div>
+                <div class="form-group"><label>Delivery Address</label><input type="text" id="goodsAddress" placeholder="Where can we collect?"></div>
+                <button onclick="donateGoods()" class="btn btn-dark" style="width:100%;">Donate Goods</button>
             </div>
         </div>
-        <div id="donateMessage" class="message success" style="max-width:500px; margin:2rem auto;">🎉 Thank you!</div>
+        <div id="donateMessage" class="message success" style="max-width:500px; margin:2rem auto;">🎉 Thank you for your generous donation!</div>
     </section>
 
     <!-- Volunteer -->
     <section id="volunteer" class="section">
-        <h2 class="section-title">Become a Volunteer</h2>
+        <div class="section-header">
+            <span class="section-tag">Join The Team</span>
+            <h2 class="section-title">Become a Volunteer</h2>
+            <p class="section-subtitle">Join our team of dedicated volunteers and make a direct impact.</p>
+        </div>
         <div class="form-container">
             <form id="volunteerForm">
-                <div class="form-group"><label>Full Name</label><input type="text" id="volName" required></div>
-                <div class="form-group"><label>Email</label><input type="email" id="volEmail" required></div>
-                <div class="form-group"><label>Availability</label><select id="volAvailability"><option>Weekdays</option><option>Weekends</option><option>Both</option></select></div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Sign Up</button>
+                <div class="form-group"><label>Full Name</label><input type="text" id="volName" placeholder="Enter your full name" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="volEmail" placeholder="Enter your email" required></div>
+                <div class="form-group"><label>Availability</label><select id="volAvailability"><option value="">Select your availability</option><option value="weekdays">Weekdays only</option><option value="weekends">Weekends only</option><option value="both">Both weekdays and weekends</option></select></div>
+                <button type="submit" class="btn btn-dark" style="width:100%;">Sign Up</button>
             </form>
-            <div id="volMessage" class="message success">🤝 Welcome to the team!</div>
+            <div id="volMessage" class="message success">🤝 Welcome to the team! We'll be in touch soon.</div>
         </div>
     </section>
 
@@ -178,27 +322,24 @@
         <div class="form-container" style="max-width:500px;">
             <h2 class="section-title" style="font-size:2rem;">Account Access</h2>
             
-            <!-- Toggle Buttons -->
             <div style="display:flex; gap:1rem; margin-bottom:2rem;">
                 <button onclick="showLogin()" id="btnShowLogin" class="btn" style="flex:1; background:var(--primary); color:white;">Login</button>
-                <button onclick="showSignup()" id="btnShowSignup" class="btn" style="flex:1; background:#e0e0e0; color:#333;">Sign Up</button>
+                <button onclick="showSignup()" id="btnShowSignup" class="btn" style="flex:1; background:var(--border); color:var(--dark);">Sign Up</button>
             </div>
 
-            <!-- Login Form -->
             <div id="loginForm">
                 <div class="form-group"><label>Email / Username</label><input type="text" id="loginUser"></div>
                 <div class="form-group"><label>Password</label><input type="password" id="loginPass"></div>
-                <button onclick="login()" class="btn btn-primary" style="width:100%;">Login</button>
+                <button onclick="login()" class="btn btn-dark" style="width:100%;">Login</button>
                 <p id="loginMessage" class="message"></p>
-                <p style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color:#666;"><i>Admin? Type "admin" as your username.</i></p>
+                <p style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color:var(--grey);"><i>Admin? Type "admin" as your username.</i></p>
             </div>
 
-            <!-- Signup Form -->
             <div id="signupForm" style="display:none;">
                 <div class="form-group"><label>Full Name</label><input type="text" id="signupName"></div>
                 <div class="form-group"><label>Email</label><input type="email" id="signupEmail"></div>
                 <div class="form-group"><label>Password</label><input type="password" id="signupPass"></div>
-                <button onclick="signup()" class="btn btn-primary" style="width:100%;">Create Account</button>
+                <button onclick="signup()" class="btn btn-dark" style="width:100%;">Create Account</button>
                 <p id="signupMessage" class="message"></p>
             </div>
         </div>
@@ -214,21 +355,29 @@
         </div>
         <div class="admin-panel">
             <h3>Recent Notifications</h3>
-            <ul id="notifList"></ul>
+            <ul id="notifList"><li>No notifications yet.</li></ul>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 MealBridge. Developed by Team CODECRAFTERS.</p>
+        <div class="footer-logo">Meal<span>Bridge</span></div>
+        <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#donate">Donate</a></li>
+            <li><a href="#login">Login</a></li>
+        </ul>
+        <p class="footer-copy">&copy; 2026 MealBridge. Developed by Team CODECRAFTERS | XISD6329 Work-Integrated Learning</p>
     </footer>
 
     <!-- Chatbot -->
     <button class="chat-fab" onclick="toggleChat()">💬</button>
     <div class="chatbot-container" id="chatbot">
-        <div class="chat-header"><span>🤖 MealBridge AI</span><span onclick="toggleChat()" style="cursor:pointer;">×</span></div>
-        <div class="chat-body" id="chatBody"><div class="msg bot">Hi! How can I help?</div></div>
-        <div class="chat-input"><input type="text" id="chatInput" placeholder="Ask me anything..."><button onclick="sendMessage()">Send</button></div>
+        <div class="chat-header"><span>🤖 MealBridge Assistant</span><span onclick="toggleChat()" style="cursor:pointer;">×</span></div>
+        <div class="chat-body" id="chatBody"><div class="msg bot">Hi! I'm the MealBridge assistant. How can I help you today?</div></div>
+        <div class="chat-input"><input type="text" id="chatInput" placeholder="Ask about events, food, donations..."><button onclick="sendMessage()">Send</button></div>
     </div>
 
     <script>
@@ -242,161 +391,4 @@
             document.getElementById('signupForm').style.display = 'none';
             document.getElementById('btnShowLogin').style.background = 'var(--primary)';
             document.getElementById('btnShowLogin').style.color = 'white';
-            document.getElementById('btnShowSignup').style.background = '#e0e0e0';
-            document.getElementById('btnShowSignup').style.color = '#333';
-        }
-        function showSignup() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('signupForm').style.display = 'block';
-            document.getElementById('btnShowSignup').style.background = 'var(--primary)';
-            document.getElementById('btnShowSignup').style.color = 'white';
-            document.getElementById('btnShowLogin').style.background = '#e0e0e0';
-            document.getElementById('btnShowLogin').style.color = '#333';
-        }
-
-        /* User Database (Simulated with LocalStorage) */
-        let users = JSON.parse(localStorage.getItem('mealbridge_users')) || [];
-
-        /* Signup Logic */
-        function signup() {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const pass = document.getElementById('signupPass').value;
-            if (!name || !email || !pass) {
-                document.getElementById('signupMessage').innerText = "Please fill in all fields.";
-                document.getElementById('signupMessage').className = "message error";
-                return;
-            }
-            users.push({ name, email, pass });
-            localStorage.setItem('mealbridge_users', JSON.stringify(users));
-            document.getElementById('signupMessage').innerText = "Account created! Please login.";
-            document.getElementById('signupMessage').className = "message success";
-            setTimeout(showLogin, 1500);
-        }
-
-        /* Login Logic */
-        function login() {
-            const user = document.getElementById('loginUser').value;
-            const pass = document.getElementById('loginPass').value;
-            const msg = document.getElementById('loginMessage');
-
-            // Admin Login
-            if (user.toLowerCase() === 'admin' && pass === 'admin123') {
-                msg.innerText = "Admin Access Granted. Redirecting...";
-                msg.className = "message success";
-                setTimeout(() => { document.getElementById('admin').style.display = 'block'; scrollToSection('admin'); }, 1000);
-                return;
-            }
-
-            // User Login
-            const foundUser = users.find(u => u.email === user && u.pass === pass);
-            if (foundUser) {
-                msg.innerText = `Welcome back, ${foundUser.name}!`;
-                msg.className = "message success";
-            } else {
-                msg.innerText = "Invalid credentials. Please try again or sign up.";
-                msg.className = "message error";
-            }
-        }
-
-        /* Secret Admin Shortcut */
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-                e.preventDefault();
-                document.getElementById('admin').style.display = 'block';
-                scrollToSection('admin');
-            }
-        });
-
-        /* Global State */
-        let state = { requests: [], volunteers: [], donations: [], notifications: [] };
-
-        /* Form Submissions */
-        document.getElementById('requestForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            state.requests.push({ name: document.getElementById('reqName').value, people: document.getElementById('reqPeople').value });
-            this.reset();
-            document.getElementById('reqMessage').classList.add('success');
-            setTimeout(() => document.getElementById('reqMessage').classList.remove('success'), 4000);
-            updateAdminStats();
-        });
-
-        document.getElementById('volunteerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            state.volunteers.push({ name: document.getElementById('volName').value });
-            this.reset();
-            document.getElementById('volMessage').classList.add('success');
-            setTimeout(() => document.getElementById('volMessage').classList.remove('success'), 4000);
-            updateAdminStats();
-        });
-
-        /* Donations */
-        document.querySelectorAll('.amount').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.amount').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('customAmt').value = this.dataset.amt;
-            });
-        });
-
-        function donateMoney() {
-            const amt = document.getElementById('customAmt').value;
-            if (!amt) return alert("Enter an amount");
-            state.donations.push({ type: 'Money', amount: 'R' + amt });
-            document.getElementById('donateMessage').classList.add('success');
-            setTimeout(() => document.getElementById('donateMessage').classList.remove('success'), 4000);
-            updateAdminStats();
-        }
-
-        function donateGoods() {
-            const desc = document.getElementById('goodsDesc').value;
-            if (!desc) return alert("Enter goods description");
-            state.donations.push({ type: 'Goods', amount: desc });
-            document.getElementById('donateMessage').classList.add('success');
-            setTimeout(() => document.getElementById('donateMessage').classList.remove('success'), 4000);
-            updateAdminStats();
-        }
-
-        /* Admin Dashboard */
-        function updateAdminStats() {
-            document.getElementById('statRequests').innerText = state.requests.length;
-            document.getElementById('statVolunteers').innerText = state.volunteers.length;
-            document.getElementById('statDonations').innerText = state.donations.length;
-
-            const notifList = document.getElementById('notifList');
-            notifList.innerHTML = '';
-            
-            if(state.requests.length > 0) {
-                state.notifications.unshift({ msg: `New request from ${state.requests[state.requests.length-1].name}` });
-            }
-            state.notifications.slice(0, 5).forEach(notif => {
-                let li = document.createElement('li');
-                li.innerText = notif.msg;
-                notifList.appendChild(li);
-            });
-        }
-
-        /* Chatbot */
-        function toggleChat() { document.getElementById('chatbot').classList.toggle('open'); }
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (!message) return;
-            const chatBody = document.getElementById('chatBody');
-            chatBody.innerHTML += `<div class="msg user">${message}</div>`;
-            input.value = '';
-
-            setTimeout(() => {
-                let botReply = "I'm not sure. Please contact us.";
-                const lowerMsg = message.toLowerCase();
-                if (lowerMsg.includes('donate')) botReply = "You can donate via the Donate section above!";
-                else if (lowerMsg.includes('food') || lowerMsg.includes('request')) botReply = "Please use the Request Food section above.";
-                else if (lowerMsg.includes('volunteer')) botReply = "Please sign up in the Volunteer section!";
-                else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) botReply = "Hello! How can I assist you?";
-                chatBody.innerHTML += `<div class="msg bot">${botReply}</div>`;
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+           
