@@ -202,7 +202,7 @@
         </div>
     </section>
 
-    <!-- Events & Outreach -->
+    <!-- Events & Outreach (Updated to Nov & Dec) -->
     <section id="events" class="section" style="background:#f9f9f9;">
         <div class="section-header">
             <span class="section-tag">Get Involved</span>
@@ -213,7 +213,7 @@
             <!-- Event 1 -->
             <div class="event-card">
                 <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-                    <div class="event-date-badge">31 May</div>
+                    <div class="event-date-badge">14 Nov</div>
                 </div>
                 <div class="event-content">
                     <h3>Monthly Community Food Drive</h3>
@@ -226,7 +226,7 @@
             <!-- Event 2 -->
             <div class="event-card">
                 <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-                    <div class="event-date-badge">07 June</div>
+                    <div class="event-date-badge">28 Nov</div>
                 </div>
                 <div class="event-content">
                     <h3>Volunteer Training Day</h3>
@@ -239,14 +239,14 @@
             <!-- Event 3 -->
             <div class="event-card">
                 <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-                    <div class="event-date-badge">14 June</div>
+                    <div class="event-date-badge">05 Dec</div>
                 </div>
                 <div class="event-content">
-                    <h3>Food Parcel Distribution</h3>
+                    <h3>Holiday Food Parcel Distribution</h3>
                     <div class="event-meta">📍 Tshwane Church Center</div>
                     <div class="event-meta">🕗 08:00 AM - 12:00 PM</div>
-                    <p>Help us pack and distribute essential food parcels to our registered beneficiaries. Logistics and transport support greatly appreciated.</p>
-                    <button class="event-btn" onclick="registerForEvent('Food Parcel Distribution')">Register to Attend</button>
+                    <p>Help us pack and distribute essential holiday food parcels to our registered beneficiaries. Logistics and transport support greatly appreciated.</p>
+                    <button class="event-btn" onclick="registerForEvent('Holiday Food Parcel Distribution')">Register to Attend</button>
                 </div>
             </div>
         </div>
@@ -535,10 +535,10 @@
                 let botReply = "I'm not sure. Please contact us at +27 12 345 7543.";
                 const lowerMsg = message.toLowerCase();
                 if (lowerMsg.includes('donate') || lowerMsg.includes('money')) botReply = "To donate money, please use the 'Donate' section above or deposit to ABSA Account: 1234567. Thank you!";
-                else if (lowerMsg.includes('event') || lowerMsg.includes('outreach')) botReply = "Our next event is the Monthly Community Food Drive on 31 May at Pretoria North Community Hall!";
+                else if (lowerMsg.includes('event') || lowerMsg.includes('outreach')) botReply = "Our next event is the Monthly Community Food Drive on 14 November at Pretoria North Community Hall!";
                 else if (lowerMsg.includes('food') || lowerMsg.includes('request')) botReply = "You can submit a food request via the 'Request Food' section above. We usually process requests within 24 hours.";
                 else if (lowerMsg.includes('volunteer') || lowerMsg.includes('help')) botReply = "We'd love your help! Please fill out the 'Volunteer' section above and we will contact you.";
-                else if (lowerMsg.includes('date') || lowerMsg.includes('schedule')) botReply = "Our next food scheme event is Saturday, 31 May at 9:00 AM in Pretoria North.";
+                else if (lowerMsg.includes('date') || lowerMsg.includes('schedule')) botReply = "Our next food scheme event is Saturday, 14 November at 9:00 AM in Pretoria North.";
                 else if (lowerMsg.includes('thank')) botReply = "You're welcome! We appreciate your support.";
                 else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) botReply = "Hello! How can I assist you with MealBridge today?";
 
@@ -554,4 +554,3 @@
     </script>
 </body>
 </html>
-           
