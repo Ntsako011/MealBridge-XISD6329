@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealBridge | Community Food Scheme</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">🍲 MealBridge</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#request">Request Food</a></li>
+            <li><a href="#donate">Donate</a></li>
+            <li><a href="#volunteer">Volunteer</a></li>
+            <li><a href="#admin">Admin</a></li>
+        </ul>
+        <div class="burger" onclick="toggleMenu()">☰</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Bridging the Gap to Nutrition</h1>
+        <p>Connecting donors, volunteers, and families in need.</p>
+        <div>
+            <button onclick="scrollToSection('donate')" class="btn btn-primary">Donate Now</button>
+            <button onclick="scrollToSection('request')" class="btn btn-outline">Request Food</button>
+        </div>
+    </section>
+
+    <!-- Request Food Section -->
+    <section id="request" class="section">
+        <h2 class="section-title">Food Request Form</h2>
+        <div class="form-container">
+            <form id="requestForm">
+                <input type="text" id="reqName" placeholder="Full Name" required>
+                <input type="number" id="reqPeople" placeholder="Number of People" required>
+                <textarea id="reqDetails" placeholder="Brief description of your situation..." required></textarea>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+            <div id="reqMessage" class="message hidden">✅ Request submitted! Check your notifications.</div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section id="donate" class="section bg-light">
+        <h2 class="section-title">Make a Donation</h2>
+        <div class="donation-grid">
+            <div class="donation-card">
+                <h3>💸 Money</h3>
+                <div class="amounts">
+                    <button class="amount" data-amt="50">R50</button>
+                    <button class="amount" data-amt="100">R100</button>
+                    <button class="amount" data-amt="250">R250</button>
+                </div>
+                <input type="number" id="customAmt" placeholder="Or enter custom amount">
+                <button onclick="donateMoney()" class="btn btn-primary">Donate Money</button>
+            </div>
+            <div class="donation-card">
+                <h3>📦 Goods</h3>
+                <input type="text" id="goodsDesc" placeholder="e.g. 20kg Rice, Canned Food">
+                <input type="text" id="goodsAddress" placeholder="Drop-off Address">
+                <button onclick="donateGoods()" class="btn btn-primary">Donate Goods</button>
+            </div>
+        </div>
+        <div id="donateMessage" class="message hidden">🎉 Thank you for your generous donation!</div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section id="volunteer" class="section">
+        <h2 class="section-title">Become a Volunteer</h2>
+        <div class="form-container">
+            <form id="volunteerForm">
+                <input type="text" id="volName" placeholder="Full Name" required>
+                <input type="email" id="volEmail" placeholder="Email" required>
+                <select id="volAvailability">
+                    <option value="">Select Availability</option>
+                    <option value="weekdays">Weekdays</option>
+                    <option value="weekends">Weekends</option>
+                    <option value="both">Both</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <div id="volMessage" class="message hidden">🤝 Welcome to the team!</div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <section id="admin" class="section bg-light">
+        <h2 class="section-title">Admin Dashboard</h2>
+        <div class="stats-grid">
+            <div class="stat-box"><h3 id="statRequests">0</h3><p>Active Requests</p></div>
+            <div class="stat-box"><h3 id="statVolunteers">0</h3><p>Volunteers</p></div>
+            <div class="stat-box"><h3 id="statDonations">0</h3><p>Donations</p></div>
+        </div>
+        <div class="admin-panel">
+            <h3>Recent Notifications</h3>
+            <ul id="notifList"></ul>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="section">
+        <h2 class="section-title">Login</h2>
+        <div class="form-container">
+            <input type="email" id="loginEmail" placeholder="Email">
+            <input type="password" id="loginPass" placeholder="Password">
+            <button onclick="login()" class="btn btn-primary">Login</button>
+            <p id="loginMessage" class="message hidden">🔒 Secure Login</p>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <div class="chat-header" onclick="toggleChat()">
+            <span>🤖 MealBridge AI Assistant</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg bot">Hi! How can I help you today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ask about food, donations, or dates...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
