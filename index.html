@@ -391,4 +391,167 @@
             document.getElementById('signupForm').style.display = 'none';
             document.getElementById('btnShowLogin').style.background = 'var(--primary)';
             document.getElementById('btnShowLogin').style.color = 'white';
+            document.getElementById('btnShowSignup').style.background = 'var(--border)';
+            document.getElementById('btnShowSignup').style.color = 'var(--dark)';
+        }
+        function showSignup() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+            document.getElementById('btnShowSignup').style.background = 'var(--primary)';
+            document.getElementById('btnShowSignup').style.color = 'white';
+            document.getElementById('btnShowLogin').style.background = 'var(--border)';
+            document.getElementById('btnShowLogin').style.color = 'var(--dark)';
+        }
+
+        /* User Database */
+        let users = JSON.parse(localStorage.getItem('mealbridge_users')) || [];
+
+        function signup() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const pass = document.getElementById('signupPass').value;
+            if (!name || !email || !pass) {
+                document.getElementById('signupMessage').innerText = "Please fill in all fields.";
+                document.getElementById('signupMessage').className = "message error";
+                return;
+            }
+            users.push({ name, email, pass });
+            localStorage.setItem('mealbridge_users', JSON.stringify(users));
+            document.getElementById('signupMessage').innerText = "Account created! Please login.";
+            document.getElementById('signupMessage').className = "message success";
+            setTimeout(showLogin, 1500);
+        }
+
+        function login() {
+            const user = document.getElementById('loginUser').value;
+            const pass = document.getElementById('loginPass').value;
+            const msg = document.getElementById('loginMessage');
+
+            if (user.toLowerCase() === 'admin' && pass === 'admin123') {
+                msg.innerText = "Admin Access Granted. Redirecting...";
+                msg.className = "message success";
+                setTimeout(() => { document.getElementById('admin').style.display = 'block'; scrollToSection('admin'); }, 1000);
+                return;
+            }
+
+            const foundUser = users.find(u => u.email === user && u.pass === pass);
+            if (foundUser) {
+                msg.innerText = `Welcome back, ${foundUser.name}!`;
+                msg.className = "message success";
+            } else {
+                msg.innerText = "Invalid credentials. Please try again or sign up.";
+                msg.className = "message error";
+            }
+        }
+
+        /* Secret Admin Shortcut */
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+                e.preventDefault();
+                document.getElementById('admin').style.display = 'block';
+                scrollToSection('admin');
+            }
+        });
+
+        /* Global State */
+        let state = { requests: [], volunteers: [], donations: [], notifications: [] };
+
+        /* Form Submissions */
+        document.getElementById('requestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            state.requests.push({ name: document.getElementById('reqName').value, people: document.getElementById('reqPeople').value });
+            this.reset();
+            document.getElementById('reqMessage').classList.add('success');
+            setTimeout(() => document.getElementById('reqMessage').classList.remove('success'), 4000);
+            updateAdminStats();
+        });
+
+        document.getElementById('volunteerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            state.volunteers.push({ name: document.getElementById('volName').value });
+            this.reset();
+            document.getElementById('volMessage').classList.add('success');
+            setTimeout(() => document.getElementById('volMessage').classList.remove('success'), 4000);
+            updateAdminStats();
+        });
+
+        /* Donations */
+        document.querySelectorAll('.amount').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.amount').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('customAmt').value = this.dataset.amt;
+            });
+        });
+
+        function donateMoney() {
+            const amt = document.getElementById('customAmt').value;
+            if (!amt) return alert("Enter an amount");
+            state.donations.push({ type: 'Money', amount: 'R' + amt });
+            document.getElementById('donateMessage').classList.add('success');
+            setTimeout(() => document.getElementById('donateMessage').classList.remove('success'), 4000);
+            updateAdminStats();
+        }
+
+        function donateGoods() {
+            const desc = document.getElementById('goodsDesc').value;
+            if (!desc) return alert("Enter goods description");
+            state.donations.push({ type: 'Goods', amount: desc });
+            document.getElementById('donateMessage').classList.add('success');
+            setTimeout(() => document.getElementById('donateMessage').classList.remove('success'), 4000);
+            updateAdminStats();
+        }
+
+        /* Admin Dashboard */
+        function updateAdminStats() {
+            document.getElementById('statRequests').innerText = state.requests.length;
+            document.getElementById('statVolunteers').innerText = state.volunteers.length;
+            document.getElementById('statDonations').innerText = state.donations.length;
+
+            const notifList = document.getElementById('notifList');
+            notifList.innerHTML = '';
+            
+            if(state.requests.length > 0) {
+                state.notifications.unshift({ msg: `New request from ${state.requests[state.requests.length-1].name}` });
+            }
+            state.notifications.slice(0, 5).forEach(notif => {
+                let li = document.createElement('li');
+                li.innerHTML = `<span>${notif.msg}</span><span style="font-size:0.8rem; color:var(--grey);">Just now</span>`;
+                notifList.appendChild(li);
+            });
+        }
+
+        /* Chatbot */
+        function toggleChat() { document.getElementById('chatbot').classList.toggle('open'); }
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML += `<div class="msg user">${message}</div>`;
+            input.value = '';
+
+            setTimeout(() => {
+                let botReply = "I'm not sure. Please contact us at +27 12 345 7543.";
+                const lowerMsg = message.toLowerCase();
+                if (lowerMsg.includes('donate') || lowerMsg.includes('money')) botReply = "To donate money, please use the 'Donate' section above or deposit to ABSA Account: 1234567. Thank you!";
+                else if (lowerMsg.includes('event') || lowerMsg.includes('outreach')) botReply = "Our next event is the Monthly Community Food Drive on 31 May at Pretoria North Community Hall!";
+                else if (lowerMsg.includes('food') || lowerMsg.includes('request')) botReply = "You can submit a food request via the 'Request Food' section above. We usually process requests within 24 hours.";
+                else if (lowerMsg.includes('volunteer') || lowerMsg.includes('help')) botReply = "We'd love your help! Please fill out the 'Volunteer' section above and we will contact you.";
+                else if (lowerMsg.includes('date') || lowerMsg.includes('schedule')) botReply = "Our next food scheme event is Saturday, 31 May at 9:00 AM in Pretoria North.";
+                else if (lowerMsg.includes('thank')) botReply = "You're welcome! We appreciate your support.";
+                else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) botReply = "Hello! How can I assist you with MealBridge today?";
+
+                chatBody.innerHTML += `<div class="msg bot">${botReply}</div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
+        }
+
+        /* Register for Events */
+        function registerForEvent(eventName) {
+            alert(`You have registered for: ${eventName}\n\nWe will send you an email with more details. Thank you for your support!`);
+        }
+    </script>
+</body>
+</html>
            
