@@ -17,14 +17,6 @@ This is the official native Android app for the MealBridge system. It is develop
 - **Database:** Firebase Firestore / MySQL (via API)
 - **Networking:** Retrofit (Consuming REST APIs)
 
-## Directory Structure
-```text
-app/
-├── src/main/
-│   ├── java/com/mealbridge/app/
-│   │   ├── Activities (LoginActivity.kt, MainActivity.kt, DonationActivity.kt)
-│   │   ├── Fragments (HomeFragment.kt, ProfileFragment.kt)
-│   │   └── Models (User.kt, Request.kt)
-│   └── res/
-│       └── layout/
-└── build.gradle.kts
+## Developer
+**Name:** Ntsako Nkosi
+**Student Number:** ST10328180
