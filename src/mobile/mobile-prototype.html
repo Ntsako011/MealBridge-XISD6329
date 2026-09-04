@@ -2,126 +2,355 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MealBridge Mobile Wireframes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MealBridge Mobile App</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #e0e0e0; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 20px; }
-        .phone { width: 280px; height: 580px; background: #f9f9f9; border: 4px solid #333; border-radius: 30px; overflow: hidden; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .notch { width: 120px; height: 20px; background: #333; border-radius: 0 0 15px 15px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; }
-        .screen { height: 100%; display: flex; flex-direction: column; }
-        
-        /* Mobile Header */
-        .m-header { background: #1b5e20; color: white; padding: 30px 15px 15px; text-align: center; font-weight: bold; font-size: 18px; }
-        
-        /* Mobile Body */
-        .m-body { flex: 1; padding: 15px; overflow: hidden; }
-        
-        /* Buttons & Inputs */
-        .m-btn { width: 100%; background: #ffb300; color: #1b5e20; border: none; padding: 12px; border-radius: 8px; font-weight: bold; margin-top: 10px; cursor: pointer; text-align: center; }
-        .m-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 10px; box-sizing: border-box; background: white; color: #333; }
-        
-        /* Specific Screen Elements */
-        .m-stat { background: white; padding: 15px; border-radius: 10px; text-align: center; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .m-stat h3 { margin: 0; color: #1b5e20; font-size: 24px; }
-        .m-stat p { margin: 5px 0 0; color: #666; font-size: 12px; }
+        :root {
+            --primary: #1b5e20;
+            --primary-light: #2e7d32;
+            --accent: #ffb300;
+            --light: #f4f9f4;
+            --white: #fff;
+            --dark: #1f2937;
+            --grey: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
-        .m-card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .m-card h4 { margin: 0 0 5px; color: #333; }
-        .m-card p { margin: 0; color: #666; font-size: 13px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #e0e0e0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+
+        /* Phone Frame */
+        .phone { width: 380px; height: 780px; background: var(--light); border-radius: 40px; border: 8px solid #222; overflow: hidden; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .notch { width: 120px; height: 25px; background: #222; border-radius: 0 0 20px 20px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 100; }
+
+        /* Screens */
+        .screen { height: 100%; display: flex; flex-direction: column; position: absolute; top: 0; left: 0; width: 100%; transition: transform 0.3s ease-in-out; transform: translateX(100%); }
+        .screen.active { transform: translateX(0); }
+
+        /* Header */
+        .header { background: var(--primary); color: white; padding: 40px 20px 15px; text-align: center; position: relative; }
+        .header h2 { font-size: 20px; margin: 0; }
+        .header .back { position: absolute; left: 20px; top: 40px; font-size: 24px; cursor: pointer; color: white; }
+
+        /* Body */
+        .body { flex: 1; padding: 20px; overflow-y: auto; }
+
+        /* Components */
+        .input { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 10px; margin-bottom: 15px; font-size: 15px; background: var(--white); }
+        .label { display: block; font-size: 13px; font-weight: bold; color: var(--grey); margin-bottom: 5px; }
+        .btn { width: 100%; background: var(--accent); color: var(--primary); border: none; padding: 15px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
+        .btn:active { transform: scale(0.98); }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+
+        /* Cards */
+        .card { background: white; padding: 15px; border-radius: 15px; box-shadow: var(--shadow); margin-bottom: 15px; }
+        .card h4 { color: var(--primary); margin: 0 0 5px; }
+        .card p { color: var(--grey); font-size: 13px; margin: 0; }
+
+        /* Stats */
+        .stat { background: white; padding: 20px; border-radius: 15px; text-align: center; box-shadow: var(--shadow); }
+        .stat h3 { color: var(--primary); font-size: 28px; margin: 0; }
+        .stat p { color: var(--grey); font-size: 12px; margin-top: 5px; }
+
+        /* Chat */
+        .chat-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 15px; overflow-y: auto; background: #f0f0f0; }
+        .bubble { padding: 12px 15px; border-radius: 15px; max-width: 80%; font-size: 14px; line-height: 1.5; }
+        .bubble.bot { background: white; align-self: flex-start; box-shadow: var(--shadow); }
+        .bubble.user { background: var(--primary); color: white; align-self: flex-end; }
+        .chat-input-row { display: flex; gap: 10px; padding: 15px; background: white; border-top: 1px solid #ddd; }
+        .chat-input-row input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 25px; font-size: 14px; }
+        .chat-input-row button { background: var(--primary); color: white; border: none; border-radius: 25px; padding: 0 20px; font-size: 14px; font-weight: bold; }
+
+        /* Bottom Nav */
+        .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: white; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #ddd; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 11px; color: var(--grey); cursor: pointer; font-weight: bold; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item i { font-size: 22px; font-style: normal; margin-bottom: 3px; }
         
-        .m-chat-bubble { padding: 10px; border-radius: 15px; margin-bottom: 10px; max-width: 85%; font-size: 13px; }
-        .m-chat-bot { background: #e8f5e9; color: #333; align-self: flex-start; }
-        .m-chat-user { background: #1b5e20; color: white; align-self: flex-end; margin-left: auto; }
-        
-        .label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; font-weight: bold; }
+        /* Alerts */
+        .alert { padding: 12px; border-radius: 10px; text-align: center; font-weight: bold; margin-bottom: 15px; display: none; }
+        .alert.success { background: #d4edda; color: #155724; }
+        .alert.error { background: #f8d7da; color: #721c24; }
+
+        /* Admin Hidden */
+        #adminScreen { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Screen 1: Login / Sign Up -->
+    <!-- The Phone -->
     <div class="phone">
         <div class="notch"></div>
-        <div class="screen">
-            <div class="m-header">🍲 MealBridge</div>
-            <div class="m-body">
-                <h3 style="text-align:center; color:#1b5e20; margin-bottom:20px;">Welcome Back</h3>
-                <div class="label">Email / Username</div>
-                <input class="m-input" type="text" placeholder="Enter email">
-                <div class="label">Password</div>
-                <input class="m-input" type="password" placeholder="Enter password">
-                <button class="m-btn">Login</button>
-                <div style="text-align:center; margin-top:15px; font-size:12px; color:#666;">OR</div>
-                <button class="m-btn" style="background: #1b5e20; color: white;">Create Account</button>
-                <p style="text-align:center; margin-top:15px; font-size:12px; color:#888;"><i>Admin? Type "admin" as username</i></p>
+
+        <!-- Screen 1: Splash / Login -->
+        <div class="screen active" id="loginScreen">
+            <div class="header" style="padding-top: 80px;"><h2>🍲 MealBridge</h2></div>
+            <div class="body" style="display:flex; flex-direction:column; justify-content:center;">
+                <h2 style="text-align:center; color: var(--primary); margin-bottom: 30px;">Welcome Back</h2>
+                
+                <label class="label">Email / Username</label>
+                <input class="input" id="loginUser" placeholder="Enter email or username">
+                <label class="label">Password</label>
+                <input class="input" type="password" id="loginPass" placeholder="Enter password">
+                
+                <button class="btn" onclick="login()">Login</button>
+                <div style="text-align:center; font-size:13px; color:var(--grey); margin-bottom:10px;">OR</div>
+                <button class="btn btn-outline" onclick="goTo('signupScreen')">Create Account</button>
+                
+                <div id="loginMsg" class="alert error" style="margin-top: 15px;"></div>
             </div>
         </div>
-    </div>
 
-    <!-- Screen 2: Home / Dashboard -->
-    <div class="phone">
-        <div class="notch"></div>
-        <div class="screen">
-            <div class="m-header">📋 Dashboard</div>
-            <div class="m-body">
-                <div class="m-stat"><h3>5,000+</h3><p>Meals Served</p></div>
-                <div class="m-stat"><h3>100+</h3><p>Volunteers</p></div>
+        <!-- Screen 2: Signup -->
+        <div class="screen" id="signupScreen">
+            <div class="header"><span class="back" onclick="goTo('loginScreen')">←</span><h2>Sign Up</h2></div>
+            <div class="body">
+                <label class="label">Full Name</label>
+                <input class="input" id="signupName" placeholder="Enter full name">
+                <label class="label">Email</label>
+                <input class="input" id="signupEmail" placeholder="Enter email">
+                <label class="label">Password</label>
+                <input class="input" type="password" id="signupPass" placeholder="Create password">
                 
-                <div class="m-card">
-                    <h4>Next Event</h4>
+                <button class="btn btn-primary" onclick="signup()">Create Account</button>
+                <div id="signupMsg" class="alert error"></div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Home Dashboard (Main) -->
+        <div class="screen" id="homeScreen">
+            <div class="header"><h2>Home</h2></div>
+            <div class="body" style="padding-bottom: 80px;">
+                <div class="card">
+                    <h4>📢 Announcement</h4>
+                    <p>Food parcels ready for collection this Saturday!</p>
+                </div>
+                <div class="card">
+                    <h4>📅 Next Event</h4>
                     <p>14 Nov: Community Food Drive</p>
                 </div>
-                <div class="m-card">
-                    <h4>Notification</h4>
-                    <p>Food parcels ready for collection!</p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top: 20px;">
+                    <div class="stat"><h3>5,000+</h3><p>Meals Served</p></div>
+                    <div class="stat"><h3>100+</h3><p>Volunteers</p></div>
                 </div>
+                
+                <button class="btn" style="margin-top: 20px;" onclick="goTo('requestScreen')">Request Food Now</button>
+                <button class="btn btn-primary" onclick="goTo('donateScreen')">Make a Donation</button>
             </div>
         </div>
-    </div>
 
-    <!-- Screen 3: Request & Donate -->
-    <div class="phone">
-        <div class="notch"></div>
-        <div class="screen">
-            <div class="m-header">🤝 Request & Donate</div>
-            <div class="m-body">
-                <h4 style="color:#1b5e20; margin-bottom:10px;">Request Food</h4>
-                <div class="label">Full Name</div>
-                <input class="m-input" type="text" placeholder="Enter name">
-                <div class="label">Household Size</div>
-                <input class="m-input" type="number" placeholder="No. of people">
-                <button class="m-btn">Submit Request</button>
+        <!-- Screen 4: Request Food -->
+        <div class="screen" id="requestScreen">
+            <div class="header"><span class="back" onclick="goTo('homeScreen')">←</span><h2>Request Food</h2></div>
+            <div class="body">
+                <label class="label">Full Name</label>
+                <input class="input" id="reqName" placeholder="Enter name">
+                <label class="label">Household Size</label>
+                <input class="input" type="number" id="reqPeople" placeholder="No. of people">
+                <label class="label">Details</label>
+                <textarea class="input" id="reqDetails" rows="3" placeholder="Brief description"></textarea>
                 
-                <div style="border-top: 1px solid #ccc; margin: 20px 0;"></div>
-                
-                <h4 style="color:#1b5e20; margin-bottom:10px;">Donate Money</h4>
-                <div style="display:flex; gap:5px; margin-bottom:10px;">
-                    <button class="m-btn" style="flex:1;">R50</button>
-                    <button class="m-btn" style="flex:1;">R100</button>
-                </div>
-                <button class="m-btn">Donate</button>
+                <button class="btn btn-primary" onclick="submitRequest()">Submit Request</button>
+                <div id="requestMsg" class="alert success"></div>
             </div>
         </div>
-    </div>
 
-    <!-- Screen 4: Chatbot -->
-    <div class="phone">
-        <div class="notch"></div>
-        <div class="screen">
-            <div class="m-header">💬 AI Assistant</div>
-            <div class="m-body" style="display:flex; flex-direction:column; background: #f0f0f0;">
-                <div class="m-chat-bubble m-chat-bot">Hello! How can I help you today?</div>
-                <div class="m-chat-bubble m-chat-user">When is the next food drive?</div>
-                <div class="m-chat-bubble m-chat-bot">Our next food drive is on 14 November at Pretoria North!</div>
-                <div class="m-chat-bubble m-chat-user">Can I donate goods?</div>
-                <div class="m-chat-bubble m-chat-bot">Yes! You can donate goods via the Donate section.</div>
-                
-                <div style="margin-top:auto; display:flex; gap:10px; background:white; padding:10px; border-radius:10px;">
-                    <input class="m-input" style="margin:0; flex:1;" placeholder="Type a message...">
-                    <button style="background:#1b5e20; color:white; border:none; padding:10px 20px; border-radius:8px; font-weight:bold;">Send</button>
+        <!-- Screen 5: Donate -->
+        <div class="screen" id="donateScreen">
+            <div class="header"><span class="back" onclick="goTo('homeScreen')">←</span><h2>Donate</h2></div>
+            <div class="body">
+                <div class="card">
+                    <h4>💸 Money</h4>
+                    <div style="display:flex; gap:5px; margin-bottom:10px;">
+                        <button class="btn" style="flex:1;" onclick="donateMoney(50)">R50</button>
+                        <button class="btn" style="flex:1;" onclick="donateMoney(100)">R100</button>
+                        <button class="btn" style="flex:1;" onclick="donateMoney(250)">R250</button>
+                    </div>
+                    <button class="btn btn-primary" onclick="donateMoney(document.getElementById('customAmt').value)">Donate</button>
+                    <input class="input" id="customAmt" type="number" placeholder="Custom amount">
                 </div>
+                <div class="card">
+                    <h4>📦 Goods</h4>
+                    <label class="label">Goods Description</label>
+                    <input class="input" id="goodsDesc" placeholder="e.g. 20kg Rice">
+                    <label class="label">Address</label>
+                    <input class="input" id="goodsAddress" placeholder="Where to collect?">
+                    <button class="btn" onclick="donateGoods()">Donate Goods</button>
+                </div>
+                <div id="donateMsg" class="alert success"></div>
             </div>
         </div>
+
+        <!-- Screen 6: Chatbot -->
+        <div class="screen" id="chatScreen">
+            <div class="header"><span class="back" onclick="goTo('homeScreen')">←</span><h2>🤖 AI Assistant</h2></div>
+            <div class="chat-body" id="chatBody">
+                <div class="bubble bot">Hello! How can I help you today?</div>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chatInput" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <!-- Hidden Admin Screen -->
+        <div class="screen" id="adminScreen">
+            <div class="header"><h2>Admin Dashboard</h2></div>
+            <div class="body">
+                <div class="card"><h4>Recent Requests</h4><p id="adminRequests">None yet.</p></div>
+                <div class="card"><h4>Donations</h4><p id="adminDonations">None yet.</p></div>
+                <button class="btn btn-primary" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Bottom Nav (Visible on Home) -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="goTo('homeScreen')"><i>🏠</i>Home</div>
+            <div class="nav-item" onclick="goTo('requestScreen')"><i>📝</i>Request</div>
+            <div class="nav-item" onclick="goTo('donateScreen')"><i>💸</i>Donate</div>
+            <div class="nav-item" onclick="goTo('chatScreen')"><i>💬</i>Chat</div>
+        </div>
+
     </div>
 
+    <!-- JavaScript Logic -->
+    <script>
+        let users = [];
+        let requests = [];
+        let donations = [];
+
+        function goTo(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function login() {
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+            const msg = document.getElementById('loginMsg');
+
+            if (user.toLowerCase() === 'admin' && pass === 'admin123') {
+                document.getElementById('loginMsg').style.display = 'none';
+                document.getElementById('adminScreen').style.display = 'flex';
+                goTo('adminScreen');
+                return;
+            }
+
+            if (users.length > 0) {
+                const validUser = users.find(u => u.email === user && u.pass === pass);
+                if (validUser) {
+                    msg.innerText = "Login successful!";
+                    msg.className = "alert success";
+                    setTimeout(() => goTo('homeScreen'), 500);
+                } else {
+                    msg.innerText = "Invalid credentials. Please try again.";
+                    msg.className = "alert error";
+                    msg.style.display = 'block';
+                }
+            } else {
+                msg.innerText = "No account found. Please create one.";
+                msg.className = "alert error";
+                msg.style.display = 'block';
+            }
+        }
+
+        function signup() {
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const pass = document.getElementById('signupPass').value.trim();
+            const msg = document.getElementById('signupMsg');
+
+            if (!name || !email || !pass) {
+                msg.innerText = "Please fill in all fields.";
+                msg.className = "alert error";
+                msg.style.display = 'block';
+                return;
+            }
+
+            users.push({ name, email, pass });
+            msg.innerText = "Account created! Please login.";
+            msg.className = "alert success";
+            setTimeout(() => {
+                msg.style.display = 'none';
+                goTo('loginScreen');
+            }, 1000);
+        }
+
+        function submitRequest() {
+            const name = document.getElementById('reqName').value.trim();
+            const people = document.getElementById('reqPeople').value;
+            const details = document.getElementById('reqDetails').value.trim();
+            const msg = document.getElementById('requestMsg');
+
+            if (!name || !people) {
+                msg.innerText = "Please fill in all required fields.";
+                msg.className = "alert error";
+                msg.style.display = 'block';
+                return;
+            }
+
+            requests.push({ name, people, details });
+            document.getElementById('reqName').value = '';
+            document.getElementById('reqPeople').value = '';
+            document.getElementById('reqDetails').value = '';
+            
+            msg.innerText = "✅ Request submitted successfully!";
+            msg.className = "alert success";
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
+        }
+
+        function donateMoney(amount) {
+            if (!amount || amount == "0") {
+                alert("Please enter a valid amount.");
+                return;
+            }
+            donations.push({ type: 'Money', amount: 'R' + amount });
+            document.getElementById('customAmt').value = '';
+            alert(`Thank you for donating R${amount}!`);
+        }
+
+        function donateGoods() {
+            const desc = document.getElementById('goodsDesc').value.trim();
+            const addr = document.getElementById('goodsAddress').value.trim();
+            if (!desc || !addr) {
+                alert("Please fill in goods description and address.");
+                return;
+            }
+            donations.push({ type: 'Goods', amount: desc });
+            document.getElementById('goodsDesc').value = '';
+            document.getElementById('goodsAddress').value = '';
+            alert("Thank you! We will contact you for collection.");
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML += `<div class="bubble user">${message}</div>`;
+            input.value = '';
+            
+            setTimeout(() => {
+                let botReply = "I'm not sure. Please contact us.";
+                const lowerMsg = message.toLowerCase();
+                if (lowerMsg.includes('donate') || lowerMsg.includes('money')) botReply = "You can donate money via the Donate tab! Thank you!";
+                else if (lowerMsg.includes('event') || lowerMsg.includes('outreach')) botReply = "Our next event is on 14 November!";
+                else if (lowerMsg.includes('food') || lowerMsg.includes('request')) botReply = "Please use the Request tab to submit a food request.";
+                else if (lowerMsg.includes('hi') || lowerMsg.includes('hello')) botReply = "Hello! How can I assist you today?";
+                
+                chatBody.innerHTML += `<div class="bubble bot">${botReply}</div>`;
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
+        }
+
+        function logout() {
+            document.getElementById('adminScreen').style.display = 'none';
+            goTo('loginScreen');
+        }
+    </script>
 </body>
 </html>
