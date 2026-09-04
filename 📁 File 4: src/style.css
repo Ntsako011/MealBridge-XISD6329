@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+body { font-family: 'Inter', sans-serif; margin: 0; background-color: #f9fafb; color: #333; }
+.navbar { background: #1a4a2e; color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+.logo { font-size: 1.5rem; font-weight: 800; }
+.nav-links { list-style: none; display: flex; gap: 2rem; }
+.nav-links a { text-decoration: none; color: #e6f0e6; font-weight: 600; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: #7dd98a; }
+.burger { display: none; font-size: 1.5rem; cursor: pointer; }
+
+.section { padding: 4rem 5%; }
+.bg-light { background-color: #f0f7f0; }
+.section-title { text-align: center; color: #1a4a2e; font-size: 2rem; margin-bottom: 2rem; }
+
+.hero { background: linear-gradient(rgba(26, 74, 46, 0.9), rgba(26, 74, 46, 0.8)), url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; color: white; text-align: center; padding: 6rem 5%; }
+.hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+
+.btn { padding: 0.8rem 2rem; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; margin: 0.5rem; transition: 0.3s; }
+.btn-primary { background: #7dd98a; color: #1a4a2e; }
+.btn-primary:hover { background: #5cbf6a; }
+.btn-outline { background: transparent; border: 2px solid white; color: white; }
+.btn-outline:hover { background: rgba(255, 255, 255, 0.2); }
+
+.form-container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+.form-container input, .form-container textarea, .form-container select { width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+.donation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 0 auto; }
+.donation-card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.amounts { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.amount { padding: 0.5rem 1rem; border: 2px solid #7dd98a; background: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: #1a4a2e; }
+.amount.active { background: #7dd98a; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-bottom: 2rem; }
+.stat-box { background: white; padding: 2rem; text-align: center; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.stat-box h3 { font-size: 2.5rem; color: #1a4a2e; margin: 0; }
+.admin-panel { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+
+.message { padding: 1rem; border-radius: 8px; text-align: center; margin-top: 1rem; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.hidden { display: none; }
+
+.chatbot-container { position: fixed; bottom: 20px; right: 20px; width: 350px; height: 500px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; z-index: 2000; }
+.chat-header { background: #1a4a2e; color: white; padding: 1rem; cursor: pointer; }
+.chat-body { flex: 1; padding: 1rem; overflow-y: auto; background: #f9fafb; }
+.chat-input { padding: 0.5rem; display: flex; gap: 0.5rem; background: white; border-top: 1px solid #ccc; }
+.chat-input input { flex: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
+.msg { padding: 0.8rem; border-radius: 8px; margin-bottom: 0.8rem; max-width: 80%; }
+.msg.bot { background: #e6f0e6; color: #1a4a2e; }
+.msg.user { background: #1a4a2e; color: white; margin-left: auto; }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .burger { display: block; }
+    .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: #1a4a2e; padding: 1rem; }
+    .hero h1 { font-size: 2.5rem; }
+    .donation-grid, .stats-grid { grid-template-columns: 1fr; }
+    .chatbot-container { width: 90%; right: 5%; }
+}
